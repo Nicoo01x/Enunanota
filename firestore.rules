@@ -1,0 +1,64 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Games collection
+    match /games/{gameId} {
+      // Anyone authenticated can read active games
+      allow read: if request.auth != null;
+
+      // Anyone authenticated can create a game
+      allow create: if request.auth != null
+        && request.resource.data.hostId == request.auth.uid
+        && request.resource.data.estado == 'activa'
+        && request.resource.data.rondaActual == 1
+        && request.resource.data.estadoRonda == 'esperando';
+
+      // Only the host can update their game
+      allow update: if request.auth != null
+        && request.auth.uid == resource.data.hostId;
+
+      // Only the host can delete their game
+      allow delete: if request.auth != null
+        && request.auth.uid == resource.data.hostId;
+
+      // Players subcollection
+      match /players/{playerId} {
+        // Anyone can read players in a game they're part of
+        allow read: if request.auth != null;
+
+        // Anyone can create a player document with their own uid
+        allow create: if request.auth != null
+          && request.resource.data.uid == request.auth.uid;
+
+        // Host can update any player (for scoring)
+        // Players can update their own document
+        allow update: if request.auth != null
+          && (request.auth.uid == get(/databases/$(database)/documents/games/$(gameId)).data.hostId
+              || request.auth.uid == resource.data.uid);
+
+        // Host can delete players
+        allow delete: if request.auth != null
+          && request.auth.uid == get(/databases/$(database)/documents/games/$(gameId)).data.hostId;
+      }
+
+      // Buzzes subcollection
+      match /buzzes/{buzzId} {
+        // Anyone can read buzzes
+        allow read: if request.auth != null;
+
+        // Players can create buzzes with their own playerId
+        allow create: if request.auth != null
+          && request.resource.data.playerId == request.auth.uid;
+
+        // Only the host can update buzzes (to mark as resolved)
+        allow update: if request.auth != null
+          && request.auth.uid == get(/databases/$(database)/documents/games/$(gameId)).data.hostId;
+
+        // Host can delete buzzes
+        allow delete: if request.auth != null
+          && request.auth.uid == get(/databases/$(database)/documents/games/$(gameId)).data.hostId;
+      }
+    }
+  }
+}
