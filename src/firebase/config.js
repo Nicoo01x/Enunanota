@@ -1,3 +1,7 @@
+import { initializeApp } from 'firebase/app';
+import { getFirestore } from 'firebase/firestore';
+import { getAuth } from 'firebase/auth';
+
 /**
  * Firebase Configuration
  *
@@ -38,10 +42,6 @@ let auth = null;
 
 if (!USE_MOCK_SERVICE) {
   try {
-    const { initializeApp } = await import('firebase/app');
-    const { getFirestore } = await import('firebase/firestore');
-    const { getAuth } = await import('firebase/auth');
-
     app = initializeApp(firebaseConfig);
     db = getFirestore(app);
     auth = getAuth(app);

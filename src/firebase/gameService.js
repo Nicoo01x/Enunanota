@@ -1,38 +1,30 @@
-import { USE_MOCK_SERVICE } from './config';
+import { USE_MOCK_SERVICE, db } from './config';
 import { mockGameService } from './mockService';
+import {
+  collection,
+  doc,
+  setDoc,
+  getDoc,
+  updateDoc,
+  query,
+  where,
+  getDocs,
+  onSnapshot,
+  addDoc,
+  serverTimestamp,
+  runTransaction,
+  writeBatch,
+  orderBy,
+} from 'firebase/firestore';
 
 /**
  * Game Service wrapper
  * Uses mock service (localStorage) or real Firebase Firestore
  */
 
-// Real Firebase service (lazy loaded)
-let realService = null;
-
-const initRealService = async () => {
-  if (!USE_MOCK_SERVICE && !realService) {
-    const {
-      collection,
-      doc,
-      setDoc,
-      getDoc,
-      updateDoc,
-      query,
-      where,
-      getDocs,
-      onSnapshot,
-      addDoc,
-      serverTimestamp,
-      runTransaction,
-      writeBatch,
-      orderBy,
-    } = await import('firebase/firestore');
-
-    const { db } = await import('./config');
-
-    // Implementation of real Firebase functions
-    realService = {
-      createGame: async (hostId, hostName = 'Anfitrión') => {
+// Real Firebase service
+const realService = {
+  createGame: async (hostId, hostName = 'Anfitrión') => {
         const generateGameCode = () => {
           const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
           let code = '';
@@ -300,19 +292,16 @@ const initRealService = async () => {
 // Export unified API
 export const createGame = async (...args) => {
   if (USE_MOCK_SERVICE) return mockGameService.createGame(...args);
-  await initRealService();
   return realService.createGame(...args);
 };
 
 export const findGameByCode = async (...args) => {
   if (USE_MOCK_SERVICE) return mockGameService.findGameByCode(...args);
-  await initRealService();
   return realService.findGameByCode(...args);
 };
 
 export const joinGame = async (...args) => {
   if (USE_MOCK_SERVICE) return mockGameService.joinGame(...args);
-  await initRealService();
   return realService.joinGame(...args);
 };
 
@@ -338,42 +327,35 @@ export const listenToPlayer = (...args) => {
 
 export const startRound = async (...args) => {
   if (USE_MOCK_SERVICE) return mockGameService.startRound(...args);
-  await initRealService();
   return realService.startRound(...args);
 };
 
 export const endRound = async (...args) => {
   if (USE_MOCK_SERVICE) return mockGameService.endRound(...args);
-  await initRealService();
   return realService.endRound(...args);
 };
 
 export const nextRound = async (...args) => {
   if (USE_MOCK_SERVICE) return mockGameService.nextRound(...args);
-  await initRealService();
   return realService.nextRound(...args);
 };
 
 export const addBuzz = async (...args) => {
   if (USE_MOCK_SERVICE) return mockGameService.addBuzz(...args);
-  await initRealService();
   return realService.addBuzz(...args);
 };
 
 export const resolveBuzzCorrect = async (...args) => {
   if (USE_MOCK_SERVICE) return mockGameService.resolveBuzzCorrect(...args);
-  await initRealService();
   return realService.resolveBuzzCorrect(...args);
 };
 
 export const resolveBuzzIncorrect = async (...args) => {
   if (USE_MOCK_SERVICE) return mockGameService.resolveBuzzIncorrect(...args);
-  await initRealService();
   return realService.resolveBuzzIncorrect(...args);
 };
 
 export const endGame = async (...args) => {
   if (USE_MOCK_SERVICE) return mockGameService.endGame(...args);
-  await initRealService();
   return realService.endGame(...args);
 };
