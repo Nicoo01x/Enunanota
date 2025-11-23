@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import AppLayout from '../components/AppLayout';
 import Card from '../components/Card';
 import Button from '../components/Button';
+import MusicController from '../components/MusicController';
 import {
   listenToGame,
   listenToPlayers,
@@ -116,6 +117,8 @@ const HostGame = () => {
   const handleCorrectAnswer = async (buzz) => {
     try {
       await resolveBuzzCorrect(gameId, buzz.id, buzz.playerId);
+      // Terminar la ronda automáticamente después de una respuesta correcta
+      await endRound(gameId);
     } catch (err) {
       setError(err.message);
     }
@@ -265,6 +268,9 @@ const HostGame = () => {
                 </div>
               </div>
             </Card>
+
+            {/* Music Controller */}
+            <MusicController />
 
             {/* Buzz queue */}
             <Card title="Pulsaciones de esta ronda">
