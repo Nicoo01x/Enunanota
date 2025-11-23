@@ -3,6 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
+  "homepage": "https://nicoo01x.github.io/Enunanota",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
