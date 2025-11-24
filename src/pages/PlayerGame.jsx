@@ -201,38 +201,44 @@ const PlayerGame = () => {
     <AppLayout>
       <div className="max-w-2xl mx-auto space-y-6">
         {/* Header with player info */}
-        <Card className="bg-gradient-to-br from-slate-800 to-slate-900 border-2 border-transparent hover:border-indigo-500/30 transition-all">
-          <div className="text-center space-y-2">
-            <h1 className="text-2xl md:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-pink-400">
-              En una nota – Jugador
+        <Card className="bg-slate-800/50 backdrop-blur-sm border border-slate-700">
+          <div className="text-center space-y-3">
+            <h1 className="text-3xl md:text-4xl font-bold text-white">
+              En una nota
             </h1>
-            <p className="text-lg text-slate-300">
-              Jugador: <span className="font-semibold text-indigo-400">{player?.nombre}</span> ·{' '}
-              Puntaje: <span className="text-3xl font-bold text-pink-400 animate-pulse">{player?.puntaje || 0}</span>
-            </p>
+            <div className="flex items-center justify-center gap-4 flex-wrap">
+              <div className="px-4 py-2 bg-cyan-500/10 border border-cyan-500/30 rounded-lg">
+                <span className="text-sm text-slate-400">Jugador: </span>
+                <span className="font-semibold text-cyan-400">{player?.nombre}</span>
+              </div>
+              <div className="px-4 py-2 bg-emerald-500/10 border border-emerald-500/30 rounded-lg">
+                <span className="text-sm text-slate-400">Puntos: </span>
+                <span className="text-2xl font-bold text-emerald-400">{player?.puntaje || 0}</span>
+              </div>
+            </div>
           </div>
         </Card>
 
         {/* Status area */}
-        <Card className="bg-gradient-to-br from-slate-800 to-slate-900">
-          <div className="space-y-3">
-            <p className="text-lg">
-              <span className="text-slate-400">Ronda:</span>{' '}
-              <span className="font-bold text-indigo-400 text-2xl">{game?.rondaActual}</span>
-            </p>
+        <Card className="bg-slate-800/50 backdrop-blur-sm border border-slate-700">
+          <div className="space-y-4">
+            <div className="flex items-center gap-2">
+              <span className="text-slate-400">Ronda:</span>
+              <span className="font-bold text-cyan-400 text-3xl">{game?.rondaActual}</span>
+            </div>
 
-            <div className="p-3 bg-slate-700/50 rounded-lg border border-slate-600/50">
+            <div className="p-4 bg-slate-700/30 rounded-lg border border-slate-600">
               <p className="text-slate-200">{getRoundStatusText()}</p>
             </div>
 
-            <div className={`p-3 rounded-lg border ${
+            <div className={`p-4 rounded-lg border ${
               player?.bloqueadoEstaRonda
-                ? 'bg-red-500/10 border-red-500/50'
-                : 'bg-green-500/10 border-green-500/50'
+                ? 'bg-red-500/10 border-red-500/30'
+                : 'bg-emerald-500/10 border-emerald-500/30'
             }`}>
               <p
                 className={`font-semibold ${
-                  player?.bloqueadoEstaRonda ? 'text-red-400' : 'text-green-400'
+                  player?.bloqueadoEstaRonda ? 'text-red-400' : 'text-emerald-400'
                 }`}
               >
                 {getPlayerStateText()}
@@ -246,10 +252,10 @@ const PlayerGame = () => {
           <Button
             variant={canBuzz ? 'secondary' : 'ghost'}
             size="lg"
-            className={`w-full py-8 text-2xl md:text-3xl font-bold transition-all duration-300 ${
+            className={`w-full py-10 text-2xl md:text-3xl font-bold transition-all duration-300 ${
               canBuzz
-                ? 'bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600 shadow-2xl shadow-pink-500/50 hover:scale-105 hover:-translate-y-1'
-                : ''
+                ? 'bg-gradient-to-r from-cyan-500 to-emerald-500 hover:from-cyan-600 hover:to-emerald-600 shadow-2xl shadow-cyan-500/50 hover:scale-105 text-white'
+                : 'bg-slate-800/50 border-2 border-slate-700'
             }`}
             disabled={!canBuzz}
             onClick={handleBuzz}
@@ -280,7 +286,7 @@ const PlayerGame = () => {
         )}
 
         {/* Mini scoreboard */}
-        <Card title="🏆 Marcador" className="bg-gradient-to-br from-slate-800 to-slate-900">
+        <Card title="🏆 Marcador" className="bg-slate-800/50 backdrop-blur-sm border border-slate-700">
           {allPlayers.length === 0 ? (
             <p className="text-slate-400 text-center py-4">
               No hay jugadores aún
@@ -292,29 +298,29 @@ const PlayerGame = () => {
                 .map((p, index) => (
                   <div
                     key={p.id}
-                    className={`flex items-center justify-between p-3 rounded-lg transition-all hover:scale-102 ${
+                    className={`flex items-center justify-between p-4 rounded-lg transition-all ${
                       p.uid === userId
-                        ? 'bg-gradient-to-r from-indigo-500/20 to-pink-500/20 border-2 border-indigo-500 shadow-lg shadow-indigo-500/30'
-                        : 'bg-slate-700/50 border border-slate-600/30'
+                        ? 'bg-cyan-500/10 border-2 border-cyan-500/50 shadow-lg'
+                        : 'bg-slate-700/30 border border-slate-600/30'
                     }`}
                   >
                     <div className="flex items-center gap-3">
-                      <span className={`text-2xl font-bold ${
-                        index === 0 ? 'text-yellow-400' :
+                      <span className={`text-xl font-bold ${
+                        index === 0 ? 'text-amber-400' :
                         index === 1 ? 'text-slate-300' :
                         index === 2 ? 'text-orange-400' :
                         'text-slate-400'
                       }`}>
                         {index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : `#${index + 1}`}
                       </span>
-                      <span className="font-semibold text-slate-50">
+                      <span className="font-semibold text-white">
                         {p.nombre}
                         {p.uid === userId && (
-                          <span className="text-xs text-indigo-400 ml-2">(Tú)</span>
+                          <span className="text-xs text-cyan-400 ml-2">(Tú)</span>
                         )}
                       </span>
                     </div>
-                    <span className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-pink-400">
+                    <span className="text-2xl font-bold text-emerald-400">
                       {p.puntaje}
                     </span>
                   </div>

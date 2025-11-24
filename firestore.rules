@@ -60,5 +60,77 @@ service cloud.firestore {
           && request.auth.uid == get(/databases/$(database)/documents/games/$(gameId)).data.hostId;
       }
     }
+
+    // Solo Games collection (no host mode)
+    match /soloGames/{gameId} {
+      // Anyone authenticated can read solo games
+      allow read: if request.auth != null;
+
+      // Anyone authenticated can create a solo game
+      allow create: if request.auth != null
+        && request.resource.data.creadorId == request.auth.uid
+        && request.resource.data.tipo == 'solo'
+        && request.resource.data.estado == 'activa'
+        && request.resource.data.rondaActual == 1
+        && request.resource.data.estadoRonda == 'esperando';
+
+      // Any authenticated user in the game can update the game state
+      allow update: if request.auth != null;
+
+      // Only the creator can delete the game
+      allow delete: if request.auth != null
+        && request.auth.uid == resource.data.creadorId;
+
+      // Players subcollection
+      match /players/{playerId} {
+        // Anyone can read players in a solo game
+        allow read: if request.auth != null;
+
+        // Anyone can create a player document with their own uid
+        allow create: if request.auth != null
+          && request.resource.data.uid == request.auth.uid;
+
+        // System can update player scores
+        allow update: if request.auth != null;
+
+        // Creator can delete players
+        allow delete: if request.auth != null
+          && request.auth.uid == get(/databases/$(database)/documents/soloGames/$(gameId)).data.creadorId;
+      }
+
+      // Answers subcollection
+      match /answers/{answerId} {
+        // Anyone can read answers
+        allow read: if request.auth != null;
+
+        // Players can create answers with their own playerId
+        allow create: if request.auth != null
+          && request.resource.data.playerId == request.auth.uid;
+
+        // System can update answers (for evaluation)
+        allow update: if request.auth != null;
+
+        // Creator can delete answers
+        allow delete: if request.auth != null
+          && request.auth.uid == get(/databases/$(database)/documents/soloGames/$(gameId)).data.creadorId;
+      }
+
+      // Skip votes subcollection
+      match /skipVotes/{voteId} {
+        // Anyone can read skip votes
+        allow read: if request.auth != null;
+
+        // Players can create skip votes with their own playerId
+        allow create: if request.auth != null
+          && request.resource.data.playerId == request.auth.uid;
+
+        // No one can update skip votes
+        allow update: if false;
+
+        // Creator can delete skip votes
+        allow delete: if request.auth != null
+          && request.auth.uid == get(/databases/$(database)/documents/soloGames/$(gameId)).data.creadorId;
+      }
+    }
   }
 }

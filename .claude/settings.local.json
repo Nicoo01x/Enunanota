@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(firebase deploy:*)",
+      "Bash(npx firebase deploy:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

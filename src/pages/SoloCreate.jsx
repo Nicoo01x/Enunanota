@@ -45,12 +45,12 @@ const SoloCreate = () => {
   return (
     <AppLayout>
       <div className="flex items-center justify-center min-h-[70vh]">
-        <Card className="max-w-md w-full">
-          <h1 className="text-3xl font-bold text-slate-50 mb-2">
-            Crear partida sin anfitrión
+        <Card className="max-w-md w-full bg-slate-800/50 backdrop-blur-sm border border-slate-700">
+          <h1 className="text-4xl md:text-5xl font-bold text-white mb-2 text-center">
+            Crear Partida
           </h1>
-          <p className="text-slate-400 mb-6">
-            En este modo, todos los jugadores compiten al mismo tiempo. El sistema evalúa automáticamente las respuestas.
+          <p className="text-slate-400 text-center mb-8">
+            Modo sin Anfitrión - Evaluación Automática
           </p>
 
           <form onSubmit={handleCreateGame} className="space-y-6">
@@ -72,31 +72,31 @@ const SoloCreate = () => {
               type="submit"
               variant="secondary"
               size="lg"
-              className="w-full bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600"
+              className="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-semibold shadow-lg shadow-emerald-500/25 hover:scale-105 transition-all"
               disabled={loading}
             >
-              {loading ? 'Creando partida...' : 'Crear partida'}
+              {loading ? 'Creando...' : 'Crear Partida'}
             </Button>
           </form>
 
-          <div className="mt-6 pt-6 border-t border-slate-700">
-            <h3 className="text-sm font-semibold text-slate-300 mb-3">¿Cómo funciona?</h3>
-            <ul className="text-xs text-slate-400 space-y-2">
-              <li className="flex items-start gap-2">
-                <span className="text-pink-400">•</span>
-                <span>El primero en presionar el botón tiene prioridad para responder</span>
+          <div className="mt-8 pt-6 border-t border-slate-700">
+            <h3 className="text-sm text-white font-semibold text-center mb-4">¿Cómo funciona?</h3>
+            <ul className="text-sm text-slate-400 space-y-3">
+              <li className="flex items-start gap-3">
+                <span className="text-emerald-400 text-lg">•</span>
+                <span>El primero en presionar tiene prioridad</span>
               </li>
-              <li className="flex items-start gap-2">
-                <span className="text-pink-400">•</span>
-                <span>Todos pueden enviar sus respuestas en 20 segundos</span>
+              <li className="flex items-start gap-3">
+                <span className="text-emerald-400 text-lg">•</span>
+                <span>Todos pueden responder en 20 segundos</span>
               </li>
-              <li className="flex items-start gap-2">
-                <span className="text-pink-400">•</span>
-                <span>El sistema evalúa automáticamente las respuestas</span>
+              <li className="flex items-start gap-3">
+                <span className="text-emerald-400 text-lg">•</span>
+                <span>Evaluación automática de respuestas</span>
               </li>
-              <li className="flex items-start gap-2">
-                <span className="text-pink-400">•</span>
-                <span>Si nadie sabe la canción, pueden votarla para saltearla</span>
+              <li className="flex items-start gap-3">
+                <span className="text-emerald-400 text-lg">•</span>
+                <span>Voten para saltear si nadie sabe</span>
               </li>
             </ul>
           </div>

@@ -45,15 +45,15 @@ const HostCreate = () => {
   return (
     <AppLayout>
       <div className="flex items-center justify-center min-h-[70vh]">
-        <Card className="max-w-md w-full bg-gradient-to-br from-slate-800 to-slate-900 border-2 border-indigo-500/30 shadow-2xl shadow-indigo-500/20">
-          <h1 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-pink-400 mb-2 text-center">
-            Crear partida
+        <Card className="max-w-md w-full bg-slate-800/50 backdrop-blur-sm border border-slate-700">
+          <h1 className="text-4xl md:text-5xl font-bold text-white mb-2 text-center">
+            Crear Partida
           </h1>
-          <p className="text-slate-400 text-center mb-6">Como anfitrión</p>
+          <p className="text-slate-400 text-center mb-8">Modo con Anfitrión</p>
 
           <form onSubmit={handleCreateGame} className="space-y-6">
             <Input
-              label="Nombre del anfitrión (opcional)"
+              label="Tu nombre (opcional)"
               placeholder="Ingresa tu nombre"
               value={hostName}
               onChange={(e) => setHostName(e.target.value)}
@@ -69,28 +69,28 @@ const HostCreate = () => {
               type="submit"
               variant="primary"
               size="lg"
-              className="w-full shadow-lg shadow-indigo-500/50 hover:shadow-indigo-500/70 hover:scale-105 transition-all"
+              className="w-full bg-cyan-500 hover:bg-cyan-600 text-white font-semibold shadow-lg shadow-cyan-500/25 hover:scale-105 transition-all"
               disabled={loading}
             >
-              {loading ? '⏳ Creando partida...' : '🎵 Crear partida'}
+              {loading ? 'Creando...' : 'Crear Partida'}
             </Button>
           </form>
 
-          <div className="mt-6 pt-6 border-t border-slate-700">
-            <div className="space-y-2">
-              <p className="text-sm text-slate-300 font-semibold text-center mb-3">¿Cómo funciona?</p>
-              <ul className="text-xs text-slate-400 space-y-2">
-                <li className="flex items-start gap-2">
-                  <span className="text-indigo-400">•</span>
-                  <span>Se generará un código único para compartir</span>
+          <div className="mt-8 pt-6 border-t border-slate-700">
+            <div className="space-y-3">
+              <p className="text-sm text-white font-semibold text-center mb-4">¿Cómo funciona?</p>
+              <ul className="text-sm text-slate-400 space-y-3">
+                <li className="flex items-start gap-3">
+                  <span className="text-cyan-400 text-lg">•</span>
+                  <span>Se genera un código único para compartir</span>
                 </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-indigo-400">•</span>
-                  <span>Tú controlarás las rondas y evaluarás respuestas</span>
+                <li className="flex items-start gap-3">
+                  <span className="text-cyan-400 text-lg">•</span>
+                  <span>Controlas las rondas y evalúas respuestas</span>
                 </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-indigo-400">•</span>
-                  <span>Los jugadores se unirán con el código</span>
+                <li className="flex items-start gap-3">
+                  <span className="text-cyan-400 text-lg">•</span>
+                  <span>Los jugadores se unen con el código</span>
                 </li>
               </ul>
             </div>

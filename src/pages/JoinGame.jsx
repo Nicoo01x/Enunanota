@@ -98,11 +98,11 @@ const JoinGame = () => {
   return (
     <AppLayout>
       <div className="flex items-center justify-center min-h-[70vh]">
-        <Card className="max-w-md w-full bg-gradient-to-br from-slate-800 to-slate-900 border-2 border-purple-500/30 shadow-2xl shadow-purple-500/20">
-          <h1 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400 mb-2 text-center">
-            Unirse a partida
+        <Card className="max-w-md w-full bg-slate-800/50 backdrop-blur-sm border border-slate-700">
+          <h1 className="text-4xl md:text-5xl font-bold text-white mb-2 text-center">
+            Unirse a Partida
           </h1>
-          <p className="text-slate-400 text-center mb-6">Ingresa el código que te compartieron</p>
+          <p className="text-slate-400 text-center mb-8">Ingresa el código que te compartieron</p>
 
           <form onSubmit={handleJoinGame} className="space-y-6">
             <Input
@@ -132,27 +132,27 @@ const JoinGame = () => {
               type="submit"
               variant="secondary"
               size="lg"
-              className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 shadow-lg shadow-purple-500/50 hover:shadow-purple-500/70 hover:scale-105 transition-all"
+              className="w-full bg-amber-500 hover:bg-amber-600 text-white font-semibold shadow-lg shadow-amber-500/25 hover:scale-105 transition-all"
               disabled={loading}
             >
-              {loading ? '⏳ Uniéndose...' : '🎯 Unirse'}
+              {loading ? 'Uniéndose...' : 'Unirse Ahora'}
             </Button>
           </form>
 
-          <div className="mt-6 pt-6 border-t border-slate-700">
-            <div className="space-y-2">
-              <p className="text-sm text-slate-300 font-semibold text-center mb-3">Información</p>
-              <ul className="text-xs text-slate-400 space-y-2">
-                <li className="flex items-start gap-2">
-                  <span className="text-purple-400">•</span>
-                  <span>El código es de 6 caracteres</span>
+          <div className="mt-8 pt-6 border-t border-slate-700">
+            <div className="space-y-3">
+              <p className="text-sm text-white font-semibold text-center mb-4">Información</p>
+              <ul className="text-sm text-slate-400 space-y-3">
+                <li className="flex items-start gap-3">
+                  <span className="text-amber-400 text-lg">•</span>
+                  <span>El código tiene 6 caracteres</span>
                 </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-purple-400">•</span>
+                <li className="flex items-start gap-3">
+                  <span className="text-amber-400 text-lg">•</span>
                   <span>Funciona para partidas con y sin anfitrión</span>
                 </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-purple-400">•</span>
+                <li className="flex items-start gap-3">
+                  <span className="text-amber-400 text-lg">•</span>
                   <span>Puedes unirte desde cualquier dispositivo</span>
                 </li>
               </ul>
