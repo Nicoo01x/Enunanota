@@ -8,6 +8,8 @@ import HostCreate from './pages/HostCreate';
 import HostGame from './pages/HostGame';
 import JoinGame from './pages/JoinGame';
 import PlayerGame from './pages/PlayerGame';
+import SoloCreate from './pages/SoloCreate';
+import SoloGame from './pages/SoloGame';
 
 /**
  * Main App component with routing
@@ -67,6 +69,8 @@ function App() {
         <Route path="/host/:gameId" element={<HostGame />} />
         <Route path="/join" element={<JoinGame />} />
         <Route path="/player/:gameId" element={<PlayerGame />} />
+        <Route path="/solo/create" element={<SoloCreate />} />
+        <Route path="/solo/:gameId" element={<SoloGame />} />
       </Routes>
     </HashRouter>
   );

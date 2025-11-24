@@ -181,28 +181,31 @@ const HostGame = () => {
     <AppLayout>
       <div className="space-y-6">
         {/* Header with game code and controls */}
-        <Card>
+        <Card className="bg-gradient-to-br from-slate-800 to-slate-900 border-2 border-indigo-500/30">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
-              <h1 className="text-2xl md:text-3xl font-bold text-slate-50">
+              <h1 className="text-2xl md:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-pink-400">
                 En una nota – Anfitrión
               </h1>
-              <p className="text-3xl md:text-4xl font-bold text-indigo-400 mt-2">
-                Código: {game?.codigo}
-              </p>
+              <div className="mt-2 p-3 bg-indigo-500/10 border-2 border-indigo-500 rounded-lg inline-block">
+                <p className="text-3xl md:text-4xl font-bold text-indigo-400 animate-pulse-glow">
+                  {game?.codigo}
+                </p>
+              </div>
             </div>
             <div className="flex flex-col sm:flex-row gap-2">
               <Button
                 variant="ghost"
                 onClick={handleCopyLink}
+                className="border-2 border-indigo-500/50 hover:border-indigo-500"
               >
-                {copyMessage || 'Copiar enlace de invitación'}
+                {copyMessage || '📋 Copiar enlace'}
               </Button>
               <Button
                 variant="danger"
                 onClick={handleEndGame}
               >
-                Terminar partida
+                🛑 Terminar partida
               </Button>
             </div>
           </div>
@@ -243,27 +246,27 @@ const HostGame = () => {
                 <div className="space-y-2">
                   <Button
                     variant="primary"
-                    className="w-full"
+                    className="w-full shadow-lg hover:shadow-indigo-500/50"
                     disabled={game?.estadoRonda !== 'esperando'}
                     onClick={handleStartRound}
                   >
-                    Iniciar ronda
+                    ▶️ Iniciar ronda
                   </Button>
                   <Button
                     variant="secondary"
-                    className="w-full"
+                    className="w-full shadow-lg hover:shadow-pink-500/50"
                     disabled={game?.estadoRonda !== 'en_curso'}
                     onClick={handleEndRound}
                   >
-                    Finalizar ronda
+                    ⏸️ Finalizar ronda
                   </Button>
                   <Button
                     variant="ghost"
-                    className="w-full"
+                    className="w-full border-2 border-purple-500/50 hover:border-purple-500"
                     disabled={game?.estadoRonda !== 'finalizada'}
                     onClick={handleNextRound}
                   >
-                    Siguiente ronda
+                    ⏭️ Siguiente ronda
                   </Button>
                 </div>
               </div>
