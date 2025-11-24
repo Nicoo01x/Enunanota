@@ -57,7 +57,7 @@ Creado por [Nicolas Cabanillas](https://github.com/Nicoo01x)
 
 ## 📝 Licencia
 
-MIT License - Libre para usar y modificar
+MIT License - Libre para usar, NO MODIFICAR
 
 ---
 
